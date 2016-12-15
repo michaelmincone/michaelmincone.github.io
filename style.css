@@ -21,6 +21,11 @@ p.sansserif {
 
 }
 
+h1{
+font: 24px arial, sans-serif;
+
+}
+
 ul {
   list-style-type: none;
   margin: 0;
