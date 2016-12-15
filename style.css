@@ -11,8 +11,10 @@ body {
 @media screen and (max-width: 480px) {
     body {
           background-image: url("http://interfacelift.com/wallpaper/D5df479e/04084_majesty_2160x1920.jpg");
-          background-size: contain;
-          background-repeat: no-repeat;
+          -webkit-background-style: cover;
+          -moz-background-style: cover;
+          -o-background-size: cover;
+          background-style: cover;
     }
   }
 
