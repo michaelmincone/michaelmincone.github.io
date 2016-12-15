@@ -1,10 +1,11 @@
 
 
-
+@media screen and (min-width: 481px) {
 body {
   background-image: url("https://wallpaperscraft.com/image/canada_lake_transparent_water_bottom_mountains_cool_freshness_purity_52104_3840x2400.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+}
 }
 @media screen and (max-width: 480px) {
     body {
