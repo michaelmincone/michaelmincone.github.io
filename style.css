@@ -15,7 +15,7 @@ body {
   }
 
 p.sansserif {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:"proxima-nova-condensed","proxima-nova","Helvetica Neue",Helvetica,Arial black,sans-serif;
     font-size: 20px;
     color: #000000;
     text-align: center;
@@ -27,7 +27,7 @@ h1{
 	margin: 1em 0 .6em 0;
 	font-weight: normal;
 	color: white;
-	font-family:"proxima-nova-condensed","proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family:"proxima-nova-condensed","proxima-nova","Helvetica Neue",Helvetica,Arial black,sans-serif;
 	text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
 	position: relative;
 	color: #FFFFFF;
@@ -41,6 +41,9 @@ ul {
   overflow: hidden;
   background-color: #333;
 
+}
+ul.b {
+    list-style-type: square;
 }
 
 li {
