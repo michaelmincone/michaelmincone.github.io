@@ -1,4 +1,11 @@
 
+
+
+body {
+  background-image: url("https://wallpaperscraft.com/image/canada_lake_transparent_water_bottom_mountains_cool_freshness_purity_52104_3840x2400.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 p.sansserif {
     font-family: Arial, Helvetica, sans-serif;
 }
