@@ -1,37 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
-  <head>
-    <link rel= "stylesheet" type ="text/css" href="style.css"/>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <style>
+li.nav-item  {
+  position: relative;
+  top: 85px;
+}
+.selfImage {
+  max-width:100%;
+  max-height:100%;
+
+}
+h3{
+  text-align: right;
+  font-weight: bold;
+  font-family: "Trebuchet MS";
+  text-decoration: underline;
+}
+
+
+
 </style>
 
-    <title>Michael Mincone</title>
+</head>
 
-  </head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>Welcome</h1>
+  <p>This is the official fan page of Michael Mincone!</p>
+
+  <ul class="nav nav-pills nav-justified">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Resume</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+
+  </ul><br>
+</div>
 
 
 
-  <body>
-    <A HREF="https://www.instagram.com/like_mike98/" onMouseOver="window.status='TEXT IN STATUS BAR'; return true">
-<IMG SRC="https://s3.amazonaws.com/freebiesupply/large/2x/instagram-logo-black-transparent.png" BORDER="0" WIDTH="100" HEIGHT="50" ALT="Come to my page!"></A>
+<div class="container">
+  <div class="row">
+    <div class="card" style="width:200px">
+      <img class="selfImage" src="C:\Users\Michael Mincone\Desktop\me.jpg" alt="Card image" style="width:100%">
+      <div class="card-body">
+        <h4 class="card-title"></h4>
+        <p class="card-text"></p>
+        <a href="https://www.linkedin.com/in/michael-mincone-14069012a/" class="btn btn-primary">LinkedIn Profile</a>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <h3>Contact info</h3>
+</br>
+  <ul class="contactInfo">
+  <li>Phone number: (631)-487-8953</li>
+</br>
+  <li>michaelmincone@gmail.com</li>
 
-  <A HREF="https://www.facebook.com/michael.mincone.5" onMouseOver="window.status='TEXT IN STATUS BAR'; return true">
-<IMG SRC="http://www.musicoop.cl/2017/images/yootheme/face.png" BORDER="0" WIDTH="50" HEIGHT="50" ALT="Come to my page!"></A>
-
-  <h1><center>WELCOME</center></h1>
-
-<p class="sansserif">This is the official fanpage of Michael Mincone!</p>
-
-<ul>
-  <li><a class="active" href="https://michaelmincone.github.io/">Home</a></li>
-  <li><a href="https://michaelmincone.github.io/contact.html">Contact</a></li>
-  <li><a href="/me.html">About</a></li>
 </ul>
 
-  </body>
+    </div>
+
+  </div>
+</div>
+
+</body>
 </html>
