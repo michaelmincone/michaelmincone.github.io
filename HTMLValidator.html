@@ -1,0 +1,569 @@
+<html>
+
+<body>
+<input type = "button" name = "fo" value = "true" onclick = "callHTML()">
+  <p id = "foo"></p>
+
+<script>
+function callHTML(){
+  var test = "<!DOCTYPE html><html><head><title>Page Title</title></head><body><h1>My First Heading</h1><p>My first paragraph.</p></body></html>";
+  var result = html_is_valid(test);
+  if(result == true){
+    alert("true")
+  }
+else{
+alert("false")
+}
+
+}
+
+var it;
+
+function html_is_valid(doc) {
+
+    if (doc === '') {
+        return false;
+    }
+    it = 0;
+
+
+    it = advanceitToNextChar(doc);
+
+    if (doc.length < it + 15) {
+        return false;
+    }
+
+    var docType = doc.substring(it, it + 9); //<!doctype
+    docType = docType.toLowerCase();
+
+    if (docType.localeCompare("<!doctype") != 0) {
+        return false;
+    }
+    it += 9;
+    it = advanceitToNextChar(doc);
+
+    var h = doc.substring(it, it + 4); //html
+    h = h.toLowerCase();
+
+    if (h.localeCompare("html") != 0) {
+        return false;
+    }
+    it += 4;
+
+    if (!properEndTag(doc)) {
+        return false;
+    }
+
+    it += 1;
+    it = advanceitToNextChar(doc);
+
+    var html = doc.substring(it, it + 5); //<html
+    html = html.toLowerCase();
+
+    if (html.localeCompare("<html") != 0) {
+        return false;
+    }
+    it += 5;
+    it = advanceitToNextChar(doc);
+    if (doc.substring(it, it + 2).localeCompare("id") == 0) {
+        if (!validID(doc)) {
+            return false;
+        }
+    }
+
+    if (!properEndTag(doc)) {
+        return false;
+    }
+    it += 1;
+    it = advanceitToNextChar(doc);
+
+    var head = doc.substring(it, it + 5); //<head
+    head = head.toLowerCase();
+
+    if (head.localeCompare("<head") != 0) {
+        return false;
+    }
+    it += 5;
+    it = advanceitToNextChar(doc);
+    if (doc.substring(it, it + 2).localeCompare("id") == 0) {
+        if (!validID(doc)) {
+            return false;
+        }
+    }
+    if (!properEndTag(doc)) {
+        return false;
+    }
+    it += 1;  // it is now right after '<head>'
+    it = advanceitToNextChar(doc);
+
+    var title = doc.substring(it, it + 6); //<title
+    title = title.toLowerCase();
+
+    if (title.localeCompare("<title") != 0) {
+        return false;
+    }
+    it += 6;
+    it = advanceitToNextChar(doc);
+    if (doc.substring(it, it + 2).localeCompare("id") == 0) {
+        if (!validID(doc)) {
+            return false;
+        }
+    }
+
+    if (!properEndTag(doc)) {
+        return false;
+    }
+    it += 1; //it now right after <title>
+    it = advanceitToNextChar(doc);
+
+    var cTitle = doc.substring(it, it + 7);
+    cTitle = cTitle.toLowerCase();
+
+    if (cTitle.localeCompare("</title") == 0) { //if title is empty
+        return false;
+    }
+
+
+    while (cTitle.localeCompare("</title") != 0) { //while searching for closing title tag
+
+        if (doc.substring(it, it + 6).localeCompare("</html") == 0) {
+            return false;
+        }
+        it += 1;
+        cTitle = doc.substring(it, it + 7);
+        cTitle = cTitle.toLowerCase();
+        if (it > doc.length) {
+            return false;
+        }
+    }
+    it += 7;
+
+
+    if (!properEndTag(doc)) {
+        return false;
+    }
+    it += 1;  //it now after </title>
+    it = advanceitToNextChar(doc);
+
+    var closeHead = doc.substring(it, it + 6); // </head
+    closeHead = closeHead.toLowerCase();
+
+    if (closeHead.localeCompare("</head") != 0) {
+        return false;
+    }
+    it += 6;
+
+
+    if (!properEndTag(doc)) {
+        return false;
+    }
+
+    it += 1; //it now right after </head>
+    it = advanceitToNextChar(doc);
+
+
+    var oBody = doc.substring(it, it + 5);
+    oBody = oBody.toLowerCase();
+
+    if (oBody.localeCompare("<body") != 0) {
+        return false;
+    }
+
+
+    if (oBody.localeCompare("<body") == 0) {   //if there is a body tag
+        it += 5;
+        it = advanceitToNextChar(doc);
+        if (doc.substring(it, it + 2).localeCompare("id") == 0) {
+            if (!validID(doc)) {
+                return false;
+            }
+        }
+        if (!properEndTag(doc)) {
+            return false;
+        }
+
+
+        it += 1;
+        var cBody = doc.substring(it, it + 6);
+        var cBoy = doc.substring(it, it + 100);
+        cBody = cBody.toLowerCase();
+        while (cBody.localeCompare("</body") != 0) { //while searching for the closing body tag
+
+            if (doc.substring(it, it + 2).localeCompare("<p") == 0) { //if there's a p tag
+                if (!validPTag(doc)) {
+                    return false;
+                }
+            } else if (doc.substring(it, it + 4).localeCompare("<div") == 0) {  //if theres a div tag
+                if (!validDivTag(doc)) {
+                    return false;
+                }
+
+            } else if (doc.substring(it, it + 3).localeCompare("<br") == 0) {
+                if (!validBRTag(doc)) {
+                    return false;
+                }
+            } else if (doc.substring(it, it + 5).localeCompare("<span") == 0) {
+                if (!validSpanTag(doc)) {
+                    return false;
+                }
+            } else if (doc.substring(it, it + 6).localeCompare("</html") == 0) {
+                return false;
+            } else if (doc.substring(it, it + 5).localeCompare("</div") == 0) {
+                return false;
+            }
+
+            it += 1;
+            cBody = doc.substring(it, it + 6);
+            cBody = cBody.toLowerCase();
+            cBoy = doc.substring(it, 100);
+        }
+
+        it += 6;
+        if (!properEndTag(doc)) {
+            return false;
+        }
+        if (it == doc.length - 1) {
+            return false;
+        }
+        it += 1;  //it now right after </body>
+    }
+
+    if (it > doc.length - 5) {
+        return false;
+    }
+    it = advanceitToNextChar(doc);
+    var cHtml = doc.substring(it, it + 6);
+    cHtml = cHtml.toLowerCase();
+
+    if (cHtml.localeCompare("</html") != 0) {
+        return false;
+    }
+
+    it += 6;
+    if (!properEndTag(doc)) {
+        return false;
+    }
+    it += 1;
+
+    while (it < doc.length) {
+        if (doc.charAt(it) != ' ') {
+            return false;
+        }
+        it += 1;
+    }
+
+/*    //comment out from here on
+    it += 1;
+
+    while(it < document.size()){
+        if(!isspace(document.at(it))){
+            return false;
+        }
+        it +=1 ;
+    }
+    if(!isspace(document.at(it))){//checks very last char of document
+        return false;
+    }
+
+*/
+
+    return true;
+
+}
+
+
+function advanceitToNextChar(str) {
+    while (str.charAt(it) == ' ') {
+        ++it;
+    }
+    return it;
+}
+
+function properEndTag(doc) {
+    it = advanceitToNextChar(doc);
+    if (doc.charAt(it) == '>') {
+        return true;
+    }
+    return false;
+}
+
+function validPTag(doc) {
+    it += 2;
+    it = advanceitToNextChar(doc);
+
+    if (doc.substring(it, it + 2).localeCompare("id") == 0) {
+        if (!validID(doc)) {
+            return false;
+        }
+    }
+
+
+    if (!properEndTag(doc)) {
+        return false;
+    }
+    it += 1;                                  //need to check if there are closing tags inbetween
+
+
+    var cP = doc.substring(it, it + 3);
+    cP = cP.toLowerCase();
+
+    while (cP.localeCompare("</p") != 0) { //while searching for the closing p tag
+
+        var cHtml = doc.substring(it, it + 6);
+        cHtml = cHtml.toLowerCase();
+        if (cHtml.localeCompare("</html") == 0) {
+            return false;
+        }
+        var cBody = doc.substring(it, it + 6);
+        cBody = cBody.toLowerCase();
+        if (cBody.localeCompare("</body") == 0) {
+            return false;
+        }
+        var oSPan = doc.substring(it, it + 5);
+        oSPan = oSPan.toLowerCase();
+        if (oSPan.localeCompare("<span") == 0) {  //if theres a span tag in the p tag
+            if (!validSpanTag(doc)) {
+                return false;
+            }
+
+        }
+        var br = doc.substring(it, it + 3);
+        br = br.toLowerCase();
+        if (br.localeCompare("<br") == 0) { //if br tag inside div
+            if (!validBRTag(doc)) {
+                return false;
+            }
+
+        }
+
+        it += 1;
+        cP = doc.substring(it, it + 3);
+        cP = cP.toLowerCase();
+        if (it > doc.length) {
+            return false;
+        }
+    }
+    it += 3;
+
+    if (!properEndTag(doc)) {
+        return false;
+    }
+  //  it += 1;
+    return true;
+}
+
+function validSpanTag(doc) {
+    it += 5;
+    it = advanceitToNextChar(doc);
+
+    if (doc.substring(it, it + 2).localeCompare("id") == 0) {
+        if (!validID(doc)) {
+            return false;
+        }
+    }
+
+    if (!properEndTag(doc)) {
+        return false;
+    }
+    it += 1;
+    var cSPan = doc.substring(it, it + 6);
+    cSPan = cSPan.toLowerCase();
+    while (cSPan.localeCompare("</span") != 0) {
+
+        var oP = doc.substring(it, it + 2);
+        oP = oP.toLowerCase();
+        if (oP.localeCompare("<p") == 0) {
+            return false;
+        }
+
+        var oSpan = doc.substring(it, it + 5);
+        oSpan = oSpan.toLowerCase();
+        if (oSpan.localeCompare("<span") == 0) {
+            return false;
+        }
+
+        var cHtml = doc.substring(it, it + 6);
+        cHtml = cHtml.toLowerCase();
+        if (cHtml.localeCompare("</html") == 0) {
+            return false;
+        }
+        var cBody = doc.substring(it, it + 6);
+        cBody = cBody.toLowerCase();
+        if (cBody.localeCompare("</body") == 0) {
+            return false;
+        }
+        var oDiv = doc.substring(it, it + 4);
+        oDiv = oDiv.toLowerCase();
+        if (oDiv.localeCompare("<div") == 0) {
+            return false;
+        }
+        if (it > doc.length) {
+            return false;
+        }
+        it += 1;
+        cSPan = doc.substring(it, it + 6);
+        cSPan = cSPan.toLowerCase();
+    }
+    it += 6;
+
+    if (!properEndTag(doc)) {
+        return false;
+    }
+
+    return true;
+}
+
+function validDivTag(doc) {
+    //can have div p br span
+    it += 4;
+    it = advanceitToNextChar(doc);
+
+    if (doc.substring(it, it + 2).localeCompare("id") == 0) {
+        if (!validID(doc)) {
+            return false;
+        }
+    }
+
+    if (!properEndTag(doc)) {
+        return false;
+    }
+    it += 1;
+    var cDiv = doc.substring(it, it + 5);
+    cDiv = cDiv.toLowerCase();
+    while (cDiv.localeCompare("</div") != 0) { //while searching for ending div tag
+
+        var cHtml = doc.substring(it, it + 6);
+        cHtml = cHtml.toLowerCase();
+        if (cHtml.localeCompare("</html") == 0) {
+            return false;
+        }
+        var cBody = doc.substring(it, it + 6);
+        cBody = cBody.toLowerCase();
+        if (cBody.localeCompare("</body") == 0) {
+            return false;
+        }
+
+        var oP = doc.substring(it, it + 2);
+        oP = oP.toLowerCase();
+        if (oP.localeCompare("<p") == 0) { //if p tag inside div
+            if (!validPTag(doc)) {
+                return false;
+            }
+        }
+        var oSPan = doc.substring(it, it + 5);
+        oSPan = oSPan.toLowerCase();
+        if (oSPan.localeCompare("<span") == 0) { //if span tag inside div
+            if (!validSpanTag(doc)) {
+                return false;
+            }
+        }
+        var br = doc.substring(it, it + 3);
+        br = br.toLowerCase();
+        if (br.localeCompare("<br") == 0) { //if br tag inside div
+            if (!validBRTag(doc)) {
+                return false;
+            }
+
+        }
+
+
+        var oDiv = doc.substring(it, it + 4);
+        oDiv = oDiv.toLowerCase();
+        if (oDiv.localeCompare("<div") == 0) {
+            if (!validDivTag(doc)) {
+                return false;
+            }
+        }
+
+        it += 1;
+        cDiv = doc.substring(it, it + 5);
+        cDiv = cDiv.toLowerCase();
+    }
+    it += 5;
+    if (!properEndTag(doc)) {
+        return false;
+    }
+    return true;
+}
+
+function validBRTag(doc) {
+
+    it += 3;
+    it = advanceitToNextChar(doc);
+
+    if (doc.substring(it, it + 2).localeCompare("id") == 0) {  //if theres an id
+        it += 2;
+        it = advanceitToNextChar(doc);
+
+        if (doc.charAt(it) != '=') {
+            return false;
+        }
+        it += 1;
+        it = advanceitToNextChar(doc);
+        if (doc.charAt(it) != '"') {
+            return false;
+        }
+        it += 1;
+        while (doc.charAt(it) != '"') {
+
+            if (doc.charAt(it) == ' ') {
+                return false;
+            }
+            it += 1;
+        }
+        it += 1;
+        it = advanceitToNextChar(doc);
+    }
+
+    if (doc.charAt(it) == '/') {
+        it += 1;
+        if (doc.charAt(it) != '>') {
+            return false;
+        }
+    } else {
+        if (doc.charAt(it) != '>') {
+            return false;
+        }
+    }
+    return true;
+}
+
+function validID(doc) {
+    it += 2;
+    it = advanceitToNextChar(doc);
+
+    if (doc.charAt(it) != '=') {
+        return false;
+    }
+    it += 1;
+    it = advanceitToNextChar(doc);
+    if (doc.charAt(it) != '"') {
+        return false;
+    }
+    it += 1;
+    while (doc.charAt(it) != '"') {
+
+        if (doc.charAt(it) == '/') {
+            return false;
+        }
+        if (doc.charAt(it) == ' ') {
+            return false;
+        }
+        it += 1;
+    }
+    it += 1;
+    it = advanceitToNextChar(doc);
+
+    if (doc.charAt(it) != '>') {
+        return false;
+    }
+
+    return true;
+}
+
+
+
+</script>
+
+</body>
+</html>
