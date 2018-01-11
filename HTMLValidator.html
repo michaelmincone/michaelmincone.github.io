@@ -127,7 +127,7 @@ function html_is_valid(doc) {
     it += 1;
     it = advanceitToNextChar(doc);
 
-    var html = doc.substring(it, it + 6); //<html
+    var html = doc.substring(it, it + 5); //<html
     html = html.toLowerCase();
 
     if (html.localeCompare("<html") != 0) {
