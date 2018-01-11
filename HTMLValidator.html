@@ -1,18 +1,88 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Michael Mincone</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+<style>
+li.nav-item  {
+  position: relative;
+  top: 85px;
+}
+.selfImage {
+  max-width:100%;
+  max-height:100%;
+
+}
+h3{
+  text-align: right;
+  font-weight: bold;
+  font-family: "Trebuchet MS";
+  text-decoration: underline;
+}
+.welcome{
+  font-family: sans-serif;
+  font-size: 500%;
+}
+.fanPage{
+  font-size: 200%;
+}
+.form-control{
+  margin-top: 10px;
+}
+
+</style>
+
+</head>
 
 <body>
-<input type = "button" name = "fo" value = "true" onclick = "callHTML()">
-  <p id = "foo"></p>
+
+<div class="jumbotron text-center">
+  <h1 class="welcome">HTML Validator</h1>
+  <p class="fanPage">Paste your html code in the text box to see if it's ready for deployment</p>
+
+  <ul class="nav nav-pills nav-justified">
+    <li class="nav-item">
+      <a class="nav-link" href="https://michaelmincone.github.io/index.html">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="https://michaelmincone.github.io/resume.html">Resume</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="">HTML Validator</a>
+    </li>
+
+  </ul><br>
+</div>
+
+<div class="container">
+  <form>
+    <div class="form-group">
+      <label for="comment">Paste your HTML code:</label>
+      <div id="Demo-BS" style="padding:30px;">
+      <button type="button" class="btn btn-default" onclick="callHTML()">Submit</button>
+  </div>
+      <textarea class="form-control" rows="50" id="code"></textarea>
+    </div>
+  </form>
+</div>
 
 <script>
+
 function callHTML(){
-  var test = "<!DOCTYPE html><html><head><title>Page Title</title></head><body><h1>My First Heading</h1><p>My first paragraph.</p></body></html>";
+
+  var test = document.getElementById("code").value;
   var result = html_is_valid(test);
   if(result == true){
-    alert("true")
+    alert("Your code checks out!")
   }
 else{
-alert("false")
+alert("you've got some errors.")
 }
 
 }
