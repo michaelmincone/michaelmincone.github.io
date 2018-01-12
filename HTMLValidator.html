@@ -162,9 +162,9 @@ function html_is_valid(doc) {
     var title = doc.substring(it, it + 6); //<title
     title = title.toLowerCase();
 
-    if (title.localeCompare("<title") != 0) {
-        return false;
-    }
+    if (title.localeCompare("<title") == 0) {
+
+
     it += 6;
     it = advanceitToNextChar(doc);
     if (doc.substring(it, it + 2).localeCompare("id") == 0) {
@@ -207,6 +207,8 @@ function html_is_valid(doc) {
     }
     it += 1;  //it now after </title>
     it = advanceitToNextChar(doc);
+  }
+
 
 
 
@@ -294,7 +296,8 @@ function html_is_valid(doc) {
     it += 1;
 
     while (it < doc.length) {
-        if (doc.charAt(it) != ' ') {
+
+        if (doc.charAt(it) != ' ' && doc.charAt(it) != '\t' && doc.charAt(it) != '\n') {
             return false;
         }
         it += 1;
@@ -336,6 +339,8 @@ function properEndTag(doc) {
     return false;
 }
 
+
+
 function validHeadTag(doc){
 
   it += 5;
@@ -354,9 +359,9 @@ function validHeadTag(doc){
   var title = doc.substring(it, it + 6); //<title
   title = title.toLowerCase();
 
-  if (title.localeCompare("<title") != 0) {
-      return false;
-  }
+  if (title.localeCompare("<title") == 0) {
+
+
   it += 6;
   it = advanceitToNextChar(doc);
   if (doc.substring(it, it + 2).localeCompare("id") == 0) {
@@ -399,7 +404,11 @@ function validHeadTag(doc){
   }
   it += 1;  //it now after </title>
   it = advanceitToNextChar(doc);
+}
 
+while(doc.substring(it, it + 6).toLowerCase() != "</head"){
+  ++it;
+}
   var closeHead = doc.substring(it, it + 6); // </head
   closeHead = closeHead.toLowerCase();
 
